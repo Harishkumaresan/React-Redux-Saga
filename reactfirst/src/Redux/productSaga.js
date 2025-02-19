@@ -10,7 +10,7 @@ function* getProducts(){
 function* searchProducts(data){
     let result = yield fetch(`http://localhost:3500/products?q=${data.query}`)
     result = yield result.json();
-     console.log("action productlist is called",result)
+     console.log("action productlist is called",result) 
      yield put({type: SET_PRODUCT_LIST,data:result})
 }
 
