@@ -1,16 +1,17 @@
 import React from 'react';
 import img from './img/download.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { searchProduct } from '../Redux/productAction';
 
 const CartContainer = styled.div`
-  display: flex;
+  // display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: orange;
   padding: 10px;
-  border-radius: 8px;
   width: 100%;
   height: 80px;
   position: relative;
@@ -34,18 +35,25 @@ const CartCount = styled.span`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 19px;
+  top: 45px;
   right:55px
 `;
 
 const Header1 = () => {
   const result = useSelector((state) => state.cartData);
   console.log('data in header', result);
+  const dispatch = useDispatch()
 
   return (
     <CartContainer>
+      <NavLink to={'/'}><h1 style={{float:'left' , margin:'0px'}}>E-COM</h1></NavLink>
+      <div>
+        <input type='text' onClick={(event)=>dispatch(searchProduct(event.target.value))} placeholder='search products'/>
+      </div>
+      <NavLink to={'/cart'}>
       <CartCount>{result.length}</CartCount>
       <CartIcon src={img} alt='Cart' />
+      </NavLink>
     </CartContainer>
   );
 };
