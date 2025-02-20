@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { productList } from '../Redux/productAction';
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react';
+import Header1 from './Header1';
 function Main() {
   const dispatch = useDispatch();
   let data = useSelector((state) => state.productData)
@@ -18,6 +19,7 @@ function Main() {
     dispatch(productList())
   },[])
   return (
+    <Header1>
     <div>
       <div>
         <button onClick={() => dispatch(emptyCart())} >Empty-Cart</button>
@@ -40,6 +42,7 @@ function Main() {
         }
       </div>
     </div>
+    </Header1>
   );
 }
 

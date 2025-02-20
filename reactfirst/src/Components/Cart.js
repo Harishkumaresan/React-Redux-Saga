@@ -1,13 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { cartData } from '../Redux/reducer'
+import Header1 from './Header1';
 
 const Cart = () => {
     const cartData = useSelector((state)=>state.cartData);
     console.log("cartdata",cartData);
     const amount = cartData.length && cartData.map((item)=>item.prize).reduce((prev,next)=>prev+next)
   return (
-    <>
+    <Header1>
     <div>Cart Page</div>
     <div>
 <table style={{border:'1px solid black'}}>
@@ -33,7 +34,7 @@ const Cart = () => {
 </table>
     </div>
     <h3 style={{float:'left'}}>TOTAL:{amount} </h3>
-    </>
+    </Header1>
   )
 }
 
