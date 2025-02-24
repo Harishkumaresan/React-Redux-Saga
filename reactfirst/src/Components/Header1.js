@@ -12,7 +12,7 @@ const CartContainer = styled.div`
   justify-content: center;
   background-color: orange;
   padding: 10px;
-  width: 100%;
+ 
   height: 80px;
   position: relative;
 `;
