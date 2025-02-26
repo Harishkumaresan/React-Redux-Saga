@@ -1,4 +1,4 @@
-import {takeEvery , put} from 'redux-saga/effects'
+import {takeEvery , put, takeLatest} from 'redux-saga/effects'
 import { PRODUCT_LIST, SEARCH_PRODUCTS, SET_PRODUCT_LIST } from './constant';
 
 function* getProducts(){
@@ -16,7 +16,7 @@ function* searchProducts(data){
 
 function* productSaga()
 {
-   yield takeEvery(PRODUCT_LIST,getProducts)
+   yield takeLatest(PRODUCT_LIST,getProducts)
    yield takeEvery(SEARCH_PRODUCTS,searchProducts)
 }
 
