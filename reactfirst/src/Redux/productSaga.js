@@ -16,7 +16,7 @@ function* searchProducts(data){
 
 function* productSaga()
 {
-   yield takeLatest(PRODUCT_LIST,getProducts)
+   yield takeLatest(PRODUCT_LIST,getProducts) // takelatest means it call last item only takeEvery means its call all
    yield takeEvery(SEARCH_PRODUCTS,searchProducts)
 }
 

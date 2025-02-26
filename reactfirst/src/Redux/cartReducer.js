@@ -1,4 +1,4 @@
-import { DECREMENT_ITEM, INCREMENT_ITEM } from "./constant";
+import { DECREMENT_ITEM, INCREMENT_ITEM, REMOVE_ITEM } from "./constant";
 
 const initialState = {
     cartData: [],
@@ -7,14 +7,16 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT_ITEM:
-      return { ...state, quantity: state.quantity + 1 };
+      return {
+        ...state,
+        [action.payload]: (state[action.payload] || 0) + 1 // Increase only this product's quantity
+    };
 
     case DECREMENT_ITEM:
       return {
         ...state,
-        quantity: state.quantity > 1 ? state.quantity - 1 : 1, // Prevents negative values
-      };
-
+        [action.payload]: Math.max((state[action.payload] || 0) - 1, 0) // Prevent negative quantity
+    };
     default:
       return state;
   }
