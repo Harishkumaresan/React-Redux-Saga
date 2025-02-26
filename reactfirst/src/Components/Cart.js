@@ -20,7 +20,7 @@ const Cart = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    height:'500px',
+                    height:'auto',
                     background: "#f8f9fa",
                 }}
             >
@@ -77,7 +77,7 @@ const Cart = () => {
                                     <span>📦 {item.category}</span>
                                     <span>🏷️ {item.brand}</span>
                                     <span>🎨 {item.color}</span>
-                                     <button onClick={() => dispatch(removeToCart(item.id))}>Remove to cart</button>
+                                     <button onClick={() => dispatch(removeToCart(item.id))}>Remove</button>
                                     <div>
                                         <button onClick={() => dispatch(incrementItem(item.id))}>+</button>
                                         <span> Quantity: {quantity} </span>
@@ -89,7 +89,7 @@ const Cart = () => {
                         );
                     })}
                 </div>
-                <h3 style={{ float: 'left' }}>
+                <h3 style={{ float: 'left', marginTop:'400px' , marginLeft:'320px'}}>
                 TOTAL: ₹{cartData.reduce((sum, item) => sum + item.prize * (quantityReducer[item.id] || 1), 0)}
             </h3>
             </div>
