@@ -63,7 +63,7 @@ const Header1 = ({children}) => {
       <p>Name</p>
       <p>Contact</p>
       <p>About</p>
-      <p>view</p>
+      <p>view</p> 
      </div>
      </footer>
      </>
