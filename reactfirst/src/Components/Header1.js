@@ -57,7 +57,7 @@ const Header1 = ({children}) => {
       </NavLink>
     </CartContainer>
      <main className="content">{children}</main>
-     <footer style={{ backgroundColor:'orange'}}>
+     <footer style={{ backgroundColor:'orange' , marginTop:'30px'}}>
      <NavLink to={'/'}><h1 style={{float:'left' , margin:'0px'}}>E-COM</h1></NavLink>
      <div style={{display:'flex' , paddingLeft:'900px' , gap:'10px'}}>
       <p>Name</p>

@@ -1,19 +1,33 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header1 from "./Header1";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { removeToCart } from '../Redux/action';
 
 const Checkout = () => {
     const cartData = useSelector((state) => state.cartData);
     const quantityReducer = useSelector((state) => state.cartReducer); // Get all quantities
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); // Hook for navigation
 
     const totalAmount = cartData.reduce(
         (sum, item) => sum + item.prize * (quantityReducer[item.id] || 1),
         0
     );
     const handleBuyClick = () => {
-        alert('Your order is placed');
-    };
+        if (cartData.length > 0) {
+          alert("Order Confirmed! 🎉");
+        } else {
+          alert("No products in checkout! Going back to Home.");
+          navigate("/"); // Redirect to home page
+        }
+      };
+      useEffect(() => {
+        if (cartData.length === 0) {
+            alert("No products in checkout! Redirecting to Home.");
+            navigate("/"); // Redirect to home page
+        }
+    }, [cartData, navigate]);
 
     return (
         <>
@@ -81,6 +95,7 @@ const Checkout = () => {
                                         <p>
                                             🏷️ Total: <strong>₹{item.prize * quantity}</strong>
                                         </p>
+                                         <button onClick={() => dispatch(removeToCart(item.id))}>Remove</button>
                                     </div>
                                 </div>
                             );
