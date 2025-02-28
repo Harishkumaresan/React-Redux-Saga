@@ -12,7 +12,6 @@ const CartContainer = styled.div`
   justify-content: center;
   background-color: orange;
   padding: 10px;
- 
   height: 80px;
   position: relative;
 `;
@@ -55,6 +54,12 @@ const Header1 = ({children}) => {
       <CartCount>{result.length}</CartCount>
       <CartIcon src={img} alt='Cart' />
       </NavLink>
+      <div style={{display:'flex' , paddingLeft:'900px' , gap:'10px'}}>
+      <p>Name</p>
+      <p>Contact</p>
+      <p>About</p>
+      <p>view</p> 
+     </div>
     </CartContainer>
      <main className="content">{children}</main>
      <footer style={{ backgroundColor:'orange' , marginTop:'30px'}}>
