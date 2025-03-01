@@ -13,103 +13,85 @@ const Cart = () => {
     const amount = cartData.length && cartData.map((item) => item.prize).reduce((prev, next) => prev + next)
     return (
         <Header1>
-            <div>
-                <h1>Cart Page</h1>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: 'auto',
-                        background: "#f8f9fa",
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "10px",
-                            padding: "20px",
-                            width: "60%",
-                            justifyContent: "center",
-                        }}
-                    >
-                        {cartData.map((item) => {
-                            const quantity = quantityReducer[item.id] || 0; // Get quantity for each item
+            <div className="container-fluid py-5" style={{ backgroundColor: "#f0f5f9", minHeight: "100vh" }}>
+                <div className="container">
+                    <h1 className="text-center fw-bold mb-4 text-dark">🛒 Your Shopping Cart</h1>
 
-                            return (
-                                <div
-                                    key={item.id}
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "15px",
-                                        border: "1px solid #ddd",
-                                        padding: "10px",
-                                        borderRadius: "10px",
-                                        boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.1)",
-                                        background: "#fff",
-                                    }}
-                                >
-                                    {/* Image */}
-                                    <img
-                                        src={item.photo}
-                                        alt="Product"
-                                        style={{
-                                            width: "90px",
-                                            height: "90px",
-                                            objectFit: "cover",
-                                            borderRadius: "5px",
-                                        }}
-                                    />
+                    {cartData.length === 0 ? (
+                        <h3 className="text-center text-danger">Your cart is empty!</h3>
+                    ) : (
+                        <div className="row justify-content-center">
+                            <div className="col-md-10">
+                                {cartData.map((item) => {
+                                    const quantity = quantityReducer[item.id] || 1;
 
-                                    {/* Product Details */}
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "20px",
-                                            flexWrap: "wrap",
-                                        }}
-                                    >
-                                        <strong>{item.name}</strong>
-                                        <span>💰 {item.prize}</span>
-                                        <span>📦 {item.category}</span>
-                                        <span>🏷️ {item.brand}</span>
-                                        <span>🎨 {item.color}</span>
-                                        <button onClick={() => dispatch(removeToCart(item.id))}>Remove</button>
-                                        <div>
-                                            <button onClick={() => dispatch(incrementItem(item.id))}>+</button>
-                                            <span> Quantity: {quantity} </span>
-                                            <button onClick={() => dispatch(decrementItem(item.id))}>-</button>
+                                    return (
+                                        <div key={item.id} className="card shadow-sm border-2 mb-4 p-3" style={{ backgroundColor: "#ffffff" }}>
+                                            <div className="row g-0 align-items-center">
+
+                                                {/* Product Image (Left) */}
+                                                <div className="col-md-3 text-center">
+                                                    <img
+                                                        src={item.photo}
+                                                        className="img-fluid rounded p-3"
+                                                        alt="Product"
+                                                        style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                                                    />
+                                                </div>
+
+                                                {/* Product Details (Center) */}
+                                                <div className="col-md-6">
+                                                    <div className="card-body">
+                                                        <h5 className="card-title fw-bold">{item.name}</h5>
+                                                        <p className="mb-1"><strong>💰 Price:</strong> ₹{item.prize}</p>
+                                                        <p className="mb-1"><strong>📦 Category:</strong> {item.category}</p>
+
+                                                    </div>
+                                                </div>
+
+                                                {/* Remove & Quantity Buttons (Right) */}
+                                                <div className="col-md-3 text-center d-flex flex-column align-items-center">
+                                                    <button
+                                                        className="btn btn-danger btn-sm mb-2 px-3 fw-bold shadow-sm"
+                                                        onClick={() => dispatch(removeToCart(item.id))}
+                                                    >
+                                                        ❌ Remove
+                                                    </button>
+                                                    <div className="d-flex align-items-center border rounded-pill px-2 py-1">
+                                                        <button
+                                                            className="btn btn-light btn-sm fw-bold"
+                                                            onClick={() => dispatch(decrementItem(item.id))}
+                                                        >
+                                                            ➖
+                                                        </button>
+                                                        <span className="mx-3 fw-bold fs-5">{quantity}</span>
+                                                        <button
+                                                            className="btn btn-light btn-sm fw-bold"
+                                                            onClick={() => dispatch(incrementItem(item.id))}
+                                                        >
+                                                            ➕
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
 
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                    {/* <h3 style={{ float: 'left', marginTop: '400px', marginLeft: '320px' }}>
-                        TOTAL: ₹{cartData.reduce((sum, item) => sum + item.prize * (quantityReducer[item.id] || 1), 0)}
-                    </h3> */}
-                    <NavLink to={'/checkout'}>
-                        <button
-                            style={{
-                                padding: "20px 20px",
-                                marginTop: "400px",
-                                background: "#28a745",
-                                color: "white",
-                                border: "none",
-                                borderRadius: "5px",
-                                cursor: "pointer",
-                                marginLeft: '320px',
-                                float: 'left',
-                                marginBottom:'30px'
-                            }}
-                        >
-                            Check Out
-                        </button>
-                    </NavLink>
+                    {/* Checkout Section */}
+                    {cartData.length > 0 && (
+                        <div className="d-flex justify-content-end mt-5">
+                            <NavLink to={'/checkout'}>
+                                <button className="btn btn-lg btn-success px-5 py-3 fw-bold shadow">
+                                    ✅ Proceed to Checkout
+                                </button>
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
             </div>
         </Header1>
