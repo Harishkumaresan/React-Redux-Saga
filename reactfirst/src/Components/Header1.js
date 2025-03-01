@@ -1,77 +1,90 @@
 import React from 'react';
 import img from './img/download.png';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { searchProduct } from '../Redux/productAction';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const CartContainer = styled.div`
-  // display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: orange;
-  padding: 10px;
-  height: 80px;
-  position: relative;
-`;
-
-const CartIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-left: 1250px;
-`;
-
-const CartCount = styled.span`
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background-color: red;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 45px;
-  right:55px
-`;
-
-const Header1 = ({children}) => {
+const Header1 = ({ children }) => {
   const result = useSelector((state) => state.cartData);
-  console.log('data in header', result);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
-    <CartContainer>
-      <NavLink to={'/'}><h1 style={{float:'left' , margin:'0px'}}>E-COM</h1></NavLink>
-      <div>
-        <input type='text' onClick={(event)=>dispatch(searchProduct(event.target.value))} placeholder='search products'/>
-      </div>
-      <NavLink to={'/cart'}>
-      <CartCount>{result.length}</CartCount>
-      <CartIcon src={img} alt='Cart' />
-      </NavLink>
-      <div style={{display:'flex' , paddingLeft:'900px' , gap:'10px'}}>
-      <p>Name</p>
-      <p>Contact</p>
-      <p>About</p>
-      <p>view</p> 
-     </div>
-    </CartContainer>
-     <main className="content">{children}</main>
-     <footer style={{ backgroundColor:'orange' , marginTop:'30px'}}>
-     <NavLink to={'/'}><h1 style={{float:'left' , margin:'0px'}}>E-COM</h1></NavLink>
-     <div style={{display:'flex' , paddingLeft:'900px' , gap:'10px'}}>
-      <p>Name</p>
-      <p>Contact</p>
-      <p>About</p>
-      <p>view</p> 
-     </div>
-     </footer>
-     </>
+      {/* Header/Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-warning px-3" style={{ height: '80px' }}>
+
+        <div className="container-fluid">
+          {/* E-COM Logo (Left) */}
+          <NavLink to="/" className="navbar-brand fw-bold">
+            E-COM
+          </NavLink>
+
+          {/* Search Bar (Center) */}
+          <form className="d-flex mx-auto" style={{ width: '40%' }}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search products"
+              onChange={(event) => dispatch(searchProduct(event.target.value))}
+            />
+          </form>
+
+          {/* Right Section: Cart & Navigation Links */}
+          <div className="d-flex align-items-center">
+            {/* Navigation Links */}
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              Name
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              About
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              Contact
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              View
+            </NavLink>
+
+            {/* Cart Section */}
+            <NavLink to="/cart" className="position-relative mx-3">
+              <img src={img} alt="Cart" width="40" height="40" />
+              {result.length > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {result.length}
+                </span>
+              )}
+            </NavLink>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="container mt-3">{children}</main>
+
+      {/* Footer */}
+      <footer className="bg-warning py-3 mt-4">
+        <div className="container d-flex justify-content-between">
+          <NavLink to="/" className="navbar-brand fw-bold">
+            E-COM
+          </NavLink>
+          <div className="d-flex">
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              Name
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              About
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              Contact
+            </NavLink>
+            <NavLink to="#" className="nav-link mx-2 fw-bold text-dark">
+              View
+            </NavLink>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 };
 
