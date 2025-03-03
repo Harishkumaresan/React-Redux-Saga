@@ -76,11 +76,18 @@ const Cart = () => {
 
                                             </div>
                                         </div>
+
                                     );
                                 })}
                             </div>
                         </div>
+
                     )}
+                    <p className="text-center mt-3">
+                        <NavLink to="/" className="text-primary fw-bold text-decoration-none">
+                            ← Move to Shopping Page
+                        </NavLink>
+                    </p>
 
                     {/* Checkout Section */}
                     {cartData.length > 0 && (
