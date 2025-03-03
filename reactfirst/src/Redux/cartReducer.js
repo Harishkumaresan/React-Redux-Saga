@@ -9,7 +9,7 @@ export const cartReducer = (state = initialState, action) => {
     case INCREMENT_ITEM:
       return {
         ...state,
-        [action.payload]: (state[action.payload] || 0) + 1 // Increase only this product's quantity
+        [action.payload]: (state[action.payload] || 1) + 1 // Increase only this product's quantity
     };
 
     case DECREMENT_ITEM:

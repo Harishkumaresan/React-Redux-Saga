@@ -7,6 +7,7 @@ import { productList } from '../Redux/productAction';
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import Header1 from './Header1';
+import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function Main() {
   const dispatch = useDispatch();
@@ -32,33 +33,35 @@ function Main() {
           <div className="row">
             {data.map((item) => (
               <div key={item.id} className="col-md-4 mb-4">
-                <div className="card shadow-sm">
-                  <img src={item.photo} className="card-img-top p-3" alt="Product" style={{ height: '200px', objectFit: 'contain' }} />
-                  <div className="card-body">
-                    <div className="product-details d-flex flex-column">
-                      <div className="d-flex ">
-                        <span><strong>Name</strong></span>
-                        <span>: {item.name}</span>
+                <NavLink to={`/product/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div className="card shadow-sm">
+                    <img src={item.photo} className="card-img-top p-3" alt="Product" style={{ height: '200px', objectFit: 'contain' }} />
+                    <div className="card-body">
+                      <div className="product-details d-flex flex-column">
+                        <div className="d-flex ">
+                          <span><strong>Name</strong></span>
+                          <span>: {item.name}</span>
+                        </div>
+                        <div className="d-flex">
+                          <span><strong>Prize</strong></span>
+                          <span>: {item.prize}</span>
+                        </div>
+                        <div className="d-flex ">
+                          <span><strong>Category</strong></span>
+                          <span>: {item.category}</span>
+                        </div>
                       </div>
-                      <div className="d-flex">
-                        <span><strong>Prize</strong></span>
-                        <span>: {item.prize}</span>
+                      <div className="d-flex justify-content-between mt-3">
+                        {/* <button onClick={() => dispatch(addToCart(item))} className="btn btn-warning rounded-pill px-3">
+                          Add to cart
+                        </button> */}
+                        {/* <button onClick={() => dispatch(removeToCart(item.id))} className="btn btn-danger rounded-pill px-3">
+                          Remove
+                        </button> */}
                       </div>
-                      <div className="d-flex ">
-                        <span><strong>Category</strong></span>
-                        <span>: {item.category}</span>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between mt-3">
-                      <button onClick={() => dispatch(addToCart(item))} className="btn btn-warning rounded-pill px-3">
-                        Add to cart
-                      </button>
-                      <button onClick={() => dispatch(removeToCart(item.id))} className="btn btn-danger rounded-pill px-3">
-                        Remove
-                      </button>
                     </div>
                   </div>
-                </div>
+                  </NavLink>
               </div>
             ))}
           </div>
